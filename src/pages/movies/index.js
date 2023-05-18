@@ -5,11 +5,11 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-const Home = () => {
+const Movies = () => {
   const myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   return (
-    <Grid container spacing={3}>
+    <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
       {myArray.map((item, index) => (
         <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={index}>
           <Card sx={{ minWidth: 300 }}>
@@ -28,4 +28,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Movies
