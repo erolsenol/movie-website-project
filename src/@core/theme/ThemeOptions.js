@@ -46,6 +46,11 @@ const themeOptions = (settings, overrideMode) => {
         ...(mergedThemeConfig.palette
           ? mergedThemeConfig.palette[themeColor]
           : palette(mode === 'semi-dark' ? overrideMode : mode, skin).primary)
+      },
+      secondary: {
+        main: '#3f51b5', // Ana rengi belirleme
+        dark: '#1a237e', // Koyu ton rengi
+        light: '#7986cb' // Açık ton rengi
       }
     }
   })

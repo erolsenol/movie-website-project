@@ -21,6 +21,11 @@ const navigation = () => {
       path: '/movies',
       title: 'Movies',
       icon: 'tabler:movie'
+    },
+    {
+      path: '/nihat',
+      title: 'Nihat',
+      icon: 'tabler:movie'
     }
   ]
 }
