@@ -16,7 +16,7 @@ const Movies = () => {
             <CardHeader title='Kick start your project 🚀'></CardHeader>
             <CardContent>
               <Typography sx={{ mb: 2 }}>All the best for your new project.</Typography>
-              <Typography>
+              <Typography color='brown[500]'>
                 Please make sure to read our Template Documentation to understand where to go from here and how to use
                 our template.
               </Typography>
