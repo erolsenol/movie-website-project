@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 // ** MUI Imports
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
@@ -5,7 +7,10 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-const Movies = () => {
+import { useAuth } from 'src/hooks/useAuth'
+
+const Movies = ({ posts }) => {
+  const auth = useAuth()
   const myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   return (

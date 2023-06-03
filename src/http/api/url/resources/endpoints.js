@@ -7,6 +7,7 @@
  *       }
  */
 let endpoints = {
+  base: 'movies',
   movies: 'movies'
 }
 

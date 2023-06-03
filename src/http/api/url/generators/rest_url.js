@@ -3,7 +3,7 @@
  *  @description This class, an ADT , provides syntax sugar api url string creation
  */
 class RestUrl {
-  constructor(service = '', endpoint, api_version = 'v1/') {
+  constructor(service = '', endpoint, api_version = 'v1') {
     this.api = [service, api_version, endpoint]
     this.api_uri = []
   }

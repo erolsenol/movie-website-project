@@ -12,7 +12,6 @@ const SecondPage = () => {
   const [ctx, setCtx] = useState(null)
 
   useEffect(function () {
-    console.log('qwe')
     const getCanvas = document.getElementById('image-canvas')
     setCanvas(getCanvas)
     const getCtx = getCanvas.getContext('2d')

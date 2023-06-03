@@ -6,4 +6,7 @@ import URL from './generators/rest_url'
  *
  * @type {RestUrl}
  */
-export const MOVIES = new URL(services.movie_service, endpoints.movies)
+export const MOVIES = {
+  base: new URL(services.movie_service, endpoints.base),
+  getMovies: new URL(services.movie_service, endpoints.movies)
+}
