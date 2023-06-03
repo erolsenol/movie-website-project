@@ -9,7 +9,7 @@ const singletonEnforcer = Symbol()
  */
 class MovieService extends RestService {
   constructor(enforcer) {
-    super(MOVIES)
+    super(MOVIES.base)
     if (enforcer !== singletonEnforcer) throw new Error('Cannot construct Movie RestService more than one')
   }
 
@@ -21,10 +21,8 @@ class MovieService extends RestService {
     return this[singleton]
   }
 
-  getMovies(payload) {
-    if (payload && typeof payload === 'object') {
-      return this._api_connector.post(MOVIES.url, payload)
-    } else throw new Error('Save API call requires Payload!')
+  getMovies() {
+    return this._api_connector.get(MOVIES.getMovies.url)
   }
 }
 

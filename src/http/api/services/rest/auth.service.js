@@ -1,6 +1,6 @@
-import { hiringConnector, idenfitConnector, nocConnector, movieConnector } from '../../../clients'
+import { movieConnector } from '../../../clients'
 import { TokenUtils } from '@/utils/token.utils'
-import { StatusCodes, ACCEPTED, OK, UNAUTHORIZED } from 'http-status-codes'
+import { StatusCodes } from 'http-status-codes'
 import { NO_REFRESH_TOKEN } from '../../../response/status/idenfit/'
 import store from '@/store'
 
@@ -53,10 +53,10 @@ const AuthService = {
    **/
   login: async function (payload) {
     return new Promise(async (resolve, reject) => {
-      await idenfitConnector
+      await movieConnector
         .login(payload)
         .then(({ headers, data, status }) => {
-          if (status === OK) {
+          if (status === StatusCodes.OK) {
             const token = headers.authorization.replace(AUTH_TOKEN_PREFIX, '')
             if (data.webAccess) {
               this.loginOnFirebase(token)
@@ -95,24 +95,24 @@ const AuthService = {
   refreshToken: function () {
     return new Promise(async function (resolve, reject) {
       if (store.state.authToken) {
-        idenfitConnector.setRemoveHeaders()
-        await idenfitConnector
+        movieConnector.setRemoveHeaders()
+        await movieConnector
           .refreshToken()
           .then(({ headers, status, data }) => {
-            if (status === OK) {
+            if (status === StatusCodes.OK) {
               if (data.error && data.error.code === NO_REFRESH_TOKEN) {
                 TokenUtils.removeAllStorage()
-                idenfitConnector.setRemoveHeaders()
+                movieConnector.setRemoveHeaders()
                 hiringConnector.setRemoveHeaders()
                 nocConnector.setRemoveHeaders()
                 hiringConnector.unmount401Interceptor()
                 nocConnector.unmount401Interceptor()
-                idenfitConnector.unmount401Interceptor()
+                movieConnector.unmount401Interceptor()
                 reject(new RefreshTokenNotFoundError(null, 'No refresh token found in idenfit'))
               }
-            } else if (status === UNAUTHORIZED) {
+            } else if (status === StatusCodes.UNAUTHORIZED) {
               reject(new AuthenticationError(null, 'No refresh token found in idenfit'))
-            } else if (status === ACCEPTED) {
+            } else if (status === StatusCodes.ACCEPTED) {
               let accessToken = headers.authorization.substring(AUTH_TOKEN_PREFIX.length)
 
               // firebase logout and re-login
@@ -139,10 +139,10 @@ const AuthService = {
    **/
   logout: function () {
     return new Promise(async function (resolve, reject) {
-      await idenfitConnector
+      await movieConnector
         .logout()
         .then(({ status }) => {
-          if (status === ACCEPTED) {
+          if (status === StatusCodes.ACCEPTED) {
             AuthService.logOutOnFirebase()
               .then(() => {
                 resolve(true)

@@ -6,6 +6,11 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
 const Home = () => {
+  const clickHandler = () => {
+    console.log('qwe')
+    fetch('/api/auth/signin')
+  }
+
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
@@ -20,6 +25,7 @@ const Home = () => {
               template.
             </Typography>
           </CardContent>
+          <button onClick={clickHandler}>qwe</button>
         </Card>
       </Grid>
       <Grid item xs={12}>

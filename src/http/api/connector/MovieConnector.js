@@ -1,57 +1,68 @@
 import axios from 'axios'
 import { TokenUtils } from '../../../utils/token.utils'
 import { StatusCodes } from 'http-status-codes'
-import { httpEventBus } from '../../event/httpEventBus'
 import Qs from 'qs'
-import store from '../../../store'
-import EventBus from '../../../bus/eventBus'
 
 const paramsSerializer = params => Qs.stringify(params, { indices: false, arrayFormat: 'repeat' })
+const TIMEOUT = 3600000
+const AUTHORIZATION_HEADER_KEY = 'Authorization'
 
-let client = null
-
-const MovieConnector = {
-  _401interceptor: null,
+export default class MovieConnector {
+  constructor(BASE_URL) {
+    this.client = axios.create({
+      baseURL: BASE_URL,
+      timeout: TIMEOUT,
+      paramsSerializer: paramsSerializer
+    })
+    this._401interceptor = null
+    this.isAlreadyFetchingAccessToken = false
+    this.subscribers = []
+  }
+  _401interceptor = null
 
   init(baseUrl) {
-    client = axios.create({ baseURL: baseUrl, timeout: 60000, paramsSerializer: paramsSerializer })
-  },
+    this.client = axios.create({ baseURL: baseUrl, timeout: 60000, paramsSerializer: paramsSerializer })
+  }
   setHeader(fieldName, fieldValue) {
-    client.defaults.headers.common[fieldName] = fieldValue
-  },
+    this.client.defaults.headers.common[fieldName] = fieldValue
+  }
   setAccessTokenToHeader() {
     this.setHeader('Authorization', `Bearer ${TokenUtils.getToken()}`)
-  },
+  }
   setRefreshTokenToHeader() {
     this.setHeader('refresh-token', TokenUtils.getRefreshToken())
-  },
+  }
   removeHeader() {
-    client.defaults.headers.common = {}
-  },
+    this.client.defaults.headers.common = {}
+  }
   getClient() {
     return this
-  },
+  }
   getClient2() {
-    return client
-  },
+    return this.client
+  }
   get(resource, config = {}) {
-    return client.get(resource, config)
-  },
+    console.log('resource', resource)
+    console.log('config', config)
+    console.log('this.client', this.client.get)
+
+    return this.client.get(resource, config)
+  }
   post(resource, data, config = {}) {
-    return client.post(resource, data, config)
-  },
+    return this.client.post(resource, data, config)
+  }
   put(resource, data, config = {}) {
-    return client.put(resource, data, config)
-  },
+    return this.client.put(resource, data, config)
+  }
 
   delete(resource, config = {}) {
-    return client.delete(resource, config)
-  },
+    return this.client.delete(resource, config)
+  }
   async customRequest(config) {
-    return client(config)
-  },
+    return this.client(config)
+  }
   async login(data) {
-    return client.post('login', null, {
+    return this.client.post('login', null, {
       params: {
         username: data.email,
         password: data.password
@@ -60,19 +71,19 @@ const MovieConnector = {
         captcha: data.captcha
       }
     })
-  },
+  }
   async logout() {
-    return client.post('api/v1/account/logout')
-  },
+    return this.client.post('api/v1/account/logout')
+  }
 
   new(config) {
     return axios.create(config)
-  },
+  }
 
   mount401Interceptor() {
-    this._401interceptor = client.interceptors.response.use(
+    this._401interceptor = this.client.interceptors.response.use(
       function (response) {
-        httpEventBus.httpResponse(response)
+        // httpEventBus.httpResponse(response)
 
         return response
       },
@@ -88,17 +99,17 @@ const MovieConnector = {
           return false
         }
 
-        httpEventBus.httpResponse(error.response)
+        // httpEventBus.httpResponse(error.response)
         const errorResponse = error.response
         if (isTokenExpired(errorResponse)) return resetTokenAndReattemptRequest(error)
 
         return Promise.reject(error)
       }
     )
-  },
+  }
 
   unmount401Interceptor() {
-    client.interceptors.response.eject(this._401interceptor)
+    this.client.interceptors.response.eject(this._401interceptor)
   }
 }
 
@@ -145,5 +156,3 @@ function onAccessTokenFetched(access_token) {
 function addSubscriber(callback) {
   subscribers.push(callback)
 }
-
-export default MovieConnector
