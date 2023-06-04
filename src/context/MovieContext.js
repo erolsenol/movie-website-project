@@ -7,8 +7,6 @@ import { useRouter } from 'next/router'
 // ** Axios
 import axios from 'axios'
 
-import service from '../http/api/services/serviceContext'
-
 // ** Config
 import authConfig from 'src/configs/auth'
 

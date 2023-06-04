@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import micromatch from 'micromatch'
-import { supabase } from '@/modules/common/server/supabase'
 
 // Add API routes that don't require authentication
 const unAuthenticatedApiRoutes = [

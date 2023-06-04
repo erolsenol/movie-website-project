@@ -46,7 +46,7 @@ export default class MovieConnector {
     console.log('config', config)
     console.log('this.client', this.client.get)
 
-    return this.client.get(resource, config)
+    return this.client.get(resource)
   }
   post(resource, data, config = {}) {
     return this.client.post(resource, data, config)

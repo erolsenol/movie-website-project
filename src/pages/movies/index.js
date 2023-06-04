@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
@@ -11,14 +11,38 @@ import { useAuth } from 'src/hooks/useAuth'
 
 const Movies = ({ posts }) => {
   const auth = useAuth()
-  const myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+  async function dataFetch() {
+    setLoading(true)
+
+    const pageInit = await (
+      await fetch(
+        '/api/movies?' +
+          new URLSearchParams({
+            page: pagination.page,
+            limit: pagination.limit
+          })
+      )
+    ).json()
+    setMovies(pageInit.results)
+    setPagination({ page: pageInit.page, limit: pageInit.limit, totalPages: pageInit.totalPages })
+    setLoading(false)
+  }
+
+  const [loading, setLoading] = useState(false)
+  const [movies, setMovies] = useState([])
+  const [pagination, setPagination] = useState({ page: 1, limit: 20, totalPages: 0 })
+
+  useEffect(() => {
+    dataFetch()
+  }, [])
 
   return (
     <Grid container rowSpacing={{ xs: 1, sm: 2, md: 3 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-      {myArray.map((item, index) => (
+      {movies.map((movie, index) => (
         <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={index}>
           <Card sx={{ minWidth: 300 }}>
-            <CardHeader title='Kick start your project 🚀'></CardHeader>
+            <CardHeader title={movie.title}></CardHeader>
             <CardContent>
               <Typography sx={{ mb: 2 }}>All the best for your new project.</Typography>
               <Typography color='brown[500]'>
