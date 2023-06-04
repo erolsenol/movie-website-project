@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Container } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { Carousel } from '@mui/lab'
+
 import Header from 'src/components/header'
 import Footer from 'src/components/footer'
 
@@ -58,54 +58,7 @@ export default function Films() {
     <Yok>
       <Header />
       <ContentContainer>
-        <Box mb={4}>
-          <Carousel
-            animation='slide'
-            swipe
-            autoPlay={false}
-            navButtonsProps={{
-              style: {
-                backgroundColor: 'transparent',
-                color: '#ffffff',
-                borderRadius: 0,
-                width: '30px',
-                height: '30px'
-              }
-            }}
-            nextButtonProps={{
-              style: {
-                right: 0
-              }
-            }}
-            prevButtonProps={{
-              style: {
-                left: 0
-              }
-            }}
-            sx={{
-              '& .MuiCarouselItem-root': {
-                display: 'flex'
-              }
-            }}
-          >
-            {renderFilmCards()}
-          </Carousel>
-        </Box>
-
-        <Box mb={4}>
-          {/* İkinci row */}
-          {renderFilmCards()}
-        </Box>
-
-        <Box mb={4}>
-          {/* Üçüncü row */}
-          {renderFilmCards()}
-        </Box>
-
-        <Box mb={4}>
-          {/* Dördüncü row */}
-          {renderFilmCards()}
-        </Box>
+        <Box mb={4}></Box>
       </ContentContainer>
       <Footer />
     </Yok>

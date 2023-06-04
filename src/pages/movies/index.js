@@ -25,7 +25,7 @@ const Movies = ({ posts }) => {
           })
       )
     ).json()
-
+    console.log(pageInit.results)
     setMovies(pageInit.results)
     setPagination({ page: pageInit.page, limit: pageInit.limit, totalPages: pageInit.totalPages })
     setLoading(false)
