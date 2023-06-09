@@ -1,10 +1,9 @@
-// ** MUI Imports
-import Card from '@mui/material/Card'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
+import React from 'react'
+import Footer from 'src/components/footer'
+import Header from 'src/components/header'
+import HomeContent from 'src/containers/homeContent'
 
+<<<<<<< HEAD
 const Home = () => {
   const clickHandler = () => {
     console.log('qwe')
@@ -41,7 +40,14 @@ const Home = () => {
         </Card>
       </Grid>
     </Grid>
+=======
+export default function Home() {
+  return (
+    <>
+      <Header />
+      <HomeContent />
+      <Footer />
+    </>
+>>>>>>> c45c4db (Header, Footer, Content bölümünün taslakları bitti)
   )
 }
-
-export default Home

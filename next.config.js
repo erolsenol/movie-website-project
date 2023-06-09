@@ -7,6 +7,9 @@ const path = require('path')
 module.exports = {
   trailingSlash: true,
   reactStrictMode: false,
+  images: {
+    domains: ['www.donanimhaber.com']
+  },
   webpack: config => {
     config.resolve.alias = {
       ...config.resolve.alias,

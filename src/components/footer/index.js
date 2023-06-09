@@ -3,8 +3,8 @@ import { Box, Typography, Link } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 const FooterContainer = styled(Box)`
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   padding: 20px;
 `
 
@@ -13,7 +13,7 @@ const FooterText = styled(Typography)`
 `
 
 const FooterLink = styled(Link)`
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
   &:hover {
     text-decoration: underline;

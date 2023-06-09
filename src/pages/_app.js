@@ -105,7 +105,10 @@ const App = props => {
       </Head>
 
       <AuthProvider>
+<<<<<<< HEAD
         {/* <MovieProvider> */}
+=======
+>>>>>>> c45c4db (Header, Footer, Content bölümünün taslakları bitti)
         <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
           <SettingsConsumer>
             {({ settings }) => {
@@ -124,7 +127,10 @@ const App = props => {
             }}
           </SettingsConsumer>
         </SettingsProvider>
+<<<<<<< HEAD
         {/* </MovieProvider> */}
+=======
+>>>>>>> c45c4db (Header, Footer, Content bölümünün taslakları bitti)
       </AuthProvider>
     </CacheProvider>
   )
