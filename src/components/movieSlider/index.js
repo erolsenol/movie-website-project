@@ -2,26 +2,33 @@ import { useState, useRef, useEffect } from 'react'
 import { Box, Container, Typography } from '@mui/material'
 import Image from 'next/image'
 
-const movies = [
-  { name: 'Movie 1', rating: 7.5, imageUrl: '/movie1.jpg' },
-  { name: 'Movie 2', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 3', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 4', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 5', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 6', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 7', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 8', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 9', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 10', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 11', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 12', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 13', rating: 8.2, imageUrl: '/movie2.jpg' },
-  { name: 'Movie 14', rating: 8.2, imageUrl: '/movie2.jpg' }
-]
-
-const MovieCarousel = () => {
+const MovieCarousel = ({ category }) => {
   const containerRef = useRef(null)
-  const [carouselMovies, setCarouselMovies] = useState([...movies, ...movies])
+
+  // const [carouselMovies, setCarouselMovies] = useState([...movies, ...movies])
+
+  async function movieCategoryFetch(category) {
+    setLoading(true)
+
+    const pageInit = await (
+      await fetch(
+        '/api/movies/category?' +
+          new URLSearchParams({
+            page: pagination.page,
+            limit: pagination.limit,
+            genres: category
+          })
+      )
+    ).json()
+    console.log(pageInit.results)
+    setMovies(pageInit.results)
+    setPagination({ page: pageInit.page, limit: pageInit.limit, totalPages: pageInit.totalPages })
+    setLoading(false)
+  }
+
+  const [loading, setLoading] = useState(false)
+  const [movies, setMovies] = useState([])
+  const [pagination, setPagination] = useState({ page: 1, limit: 14, totalPages: 0 })
 
   useEffect(() => {
     // Sola doğru infinite scroll başlangıçta sona gelene kadar kaydırmak için
@@ -29,6 +36,7 @@ const MovieCarousel = () => {
     if (container) {
       container.scrollLeft = container.scrollWidth
     }
+    movieCategoryFetch(category)
   }, [])
 
   const handleScroll = () => {
@@ -37,21 +45,22 @@ const MovieCarousel = () => {
       const scrollLeft = container.scrollLeft
       const scrollWidth = container.scrollWidth
       const clientWidth = container.clientWidth
-      if (scrollLeft === 0) {
-        // Scroll başına gelindiğinde, listenin başına eklenen kopya film verileriyle devam edilir
-        setCarouselMovies(prevMovies => [...movies, ...prevMovies])
-        container.scrollLeft = container.scrollWidth / 2
-      } else if (scrollLeft + clientWidth >= scrollWidth) {
-        // Scroll sonuna gelindiğinde, listenin sonuna eklenen kopya film verileriyle devam edilir
-        setCarouselMovies(prevMovies => [...prevMovies, ...movies])
-      }
+
+      // if (scrollLeft === 0) {
+      //   // Scroll başına gelindiğinde, listenin başına eklenen kopya film verileriyle devam edilir
+      //   setCarouselMovies(prevMovies => [...movies, ...prevMovies])
+      //   container.scrollLeft = container.scrollWidth / 2
+      // } else if (scrollLeft + clientWidth >= scrollWidth) {
+      //   // Scroll sonuna gelindiğinde, listenin sonuna eklenen kopya film verileriyle devam edilir
+      //   setCarouselMovies(prevMovies => [...prevMovies, ...movies])
+      // }
     }
   }
 
   return (
     <Container sx={{ maxWidth: '100%', overflowX: 'hidden' }}>
       <Typography variant='h5' component='h2' mb={2}>
-        Category
+        {category}
       </Typography>
       <Box
         display='flex'
@@ -70,7 +79,7 @@ const MovieCarousel = () => {
         onScroll={handleScroll}
         ref={containerRef}
       >
-        {carouselMovies.map((movie, index) => (
+        {movies.map((movie, index) => (
           <Box
             key={index}
             width={200}
@@ -83,7 +92,7 @@ const MovieCarousel = () => {
             bgcolor='#f5f5f5'
             mr={1}
           >
-            <Image src={movie.imageUrl} alt={movie.name} width={200} height={300} />
+            {/* <Image src={movie.imageUrl} alt={movie.name} width={200} height={300} /> */}
             <Typography variant='subtitle2' component='div'>
               {movie.name}
             </Typography>

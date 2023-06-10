@@ -54,7 +54,7 @@ const HeaderComp = () => {
           <Grid item xs={12} sm={6} spacing={2}>
             <Logo variant='h1'>HdFilmCehennemi</Logo>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <Autocomplete
               freeSolo
               options={['Movie 1', 'Movie 2', 'Movie 3']} // Arama seçeneklerini buraya ekleyebilirsin
@@ -73,7 +73,7 @@ const HeaderComp = () => {
                 />
               )}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Toolbar>
     </Header>

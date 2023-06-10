@@ -13,7 +13,7 @@ export async function middleware(req) {
   const { headers, nextUrl } = req
   const { pathname } = nextUrl
 
-  console.log('pathname', pathname)
+  // console.log('pathname', pathname)
 
   // Bypass routes that don't require authentication
   if (micromatch.isMatch(pathname, unAuthenticatedApiRoutes)) {
