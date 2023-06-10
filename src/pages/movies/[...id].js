@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react'
 
 async function getMovieDetail(id, setFunc) {
   return new Promise(async (resolve, reject) => {
-    console.log('qweqw')
     const movieDetail = await (await fetch('/api/movies/detail?id=' + id)).json()
+    console.log('movieDetail', movieDetail)
     setFunc(movieDetail)
     resolve(true)
   })

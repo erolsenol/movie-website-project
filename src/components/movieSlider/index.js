@@ -1,9 +1,15 @@
 import { useState, useRef, useEffect } from 'react'
 import { Box, Container, Typography } from '@mui/material'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const MovieCarousel = ({ category }) => {
   const containerRef = useRef(null)
+  const router = useRouter()
+
+  function movieDetailOpen({ title, id }) {
+    router.push(`movies/${title}/${id}`)
+  }
 
   // const [carouselMovies, setCarouselMovies] = useState([...movies, ...movies])
 
@@ -81,6 +87,7 @@ const MovieCarousel = ({ category }) => {
       >
         {movies.map((movie, index) => (
           <Box
+            onClick={() => movieDetailOpen({ title: movie.title, id: movie.id })}
             key={index}
             width={200}
             height={400}
