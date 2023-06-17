@@ -1,0 +1,46 @@
+.carouselContainer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.slide {
+  flex: 0 0 calc(100% / 14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slideContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+@keyframes slideAnimation {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+
+/* Hide scrollbar */
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

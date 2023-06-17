@@ -8,7 +8,7 @@ module.exports = {
   trailingSlash: true,
   reactStrictMode: false,
   images: {
-    domains: ['www.donanimhaber.com']
+    domains: ['cdn.kayiprihtim.com']
   },
   webpack: config => {
     config.resolve.alias = {

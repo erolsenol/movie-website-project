@@ -1,83 +1,53 @@
-import { Grid, AppBar, Toolbar, Typography, styled, fade } from '@mui/material'
+import { Grid, AppBar, Toolbar, Typography, TextField } from '@mui/material'
 import { Search as SearchIcon } from '@mui/icons-material'
-import { keyframes } from '@emotion/react'
 import Autocomplete from '@mui/material/Autocomplete'
-import TextField from '@mui/material/TextField'
 
-const fadeIn = keyframes`
-from {
-  opacity: 0;
-  transform: translateY(-10px); /* Y ekseni üzerinde yukarı doğru kaydırma */
-}
-to {
-  opacity: 1;
-  transform: translateY(0); /* Y ekseni üzerinde kayma olmadan sıfır konumu */
-}
-`
-
-const Header = styled(AppBar)`
-  background-color: #000; /* Header arkaplan rengi */
-  animation: ${fadeIn} 0.5s ease-in; /* Animasyon uygulama */
-`
-
-const Logo = styled(Typography)`
-  && {
-    font-weight: bold;
-    font-size: 24px;
-    color: #e50914; /* Logo metin rengi */
-    animation: ${fade} 0.5s ease-in; /* Logo için fade animasyonu */
+const Header = props => {
+  const handleInputChange = event => {
+    // İstediğiniz işlemleri burada gerçekleştirebilirsiniz
   }
-`
 
-const SearchInput = styled(TextField)`
-  && {
-    color: #fff; /* Search input metin rengi */
-    background-color: #333; /* Search input arkaplan rengi */
-    border-radius: 4px;
-    width: 100%;
-    animation: ${fade} 0.5s ease-in; /* Search input için fade animasyonu */
-  }
-`
-
-const SearchIconWrapper = styled('div')`
-  && {
-    color: #fff; /* Search icon rengi */
-    padding: 4px;
-  }
-`
-
-const HeaderComp = () => {
   return (
-    <Header position='static'>
+    <AppBar position='static' style={{ backgroundColor: '#000' }}>
       <Toolbar>
         <Grid container spacing={2} alignItems='center'>
-          <Grid item xs={12} sm={6} spacing={2}>
-            <Logo variant='h1'>HdFilmCehennemi</Logo>
+          <Grid item xs={12} sm={6} container spacing={2} style={{ justifyContent: 'center', transition: 'all 0.3s' }}>
+            <Typography variant='h1' style={{ fontWeight: 'bold', fontSize: 24, color: '#e50914' }}>
+              HdFilmCehennemi
+            </Typography>
           </Grid>
-          {/* <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} style={{ transition: 'all 0.3s' }}>
             <Autocomplete
               freeSolo
-              options={['Movie 1', 'Movie 2', 'Movie 3']} // Arama seçeneklerini buraya ekleyebilirsin
+              options={['Movie 1', 'Movie 2', 'Movie 3']}
+              onChange={handleInputChange}
               renderInput={params => (
-                <SearchInput
+                <TextField
                   {...params}
                   placeholder='Ara...'
                   InputProps={{
                     ...params.InputProps,
                     startAdornment: (
-                      <SearchIconWrapper>
+                      <div style={{ color: '#fff', padding: 4 }}>
                         <SearchIcon />
-                      </SearchIconWrapper>
+                      </div>
                     )
+                  }}
+                  style={{
+                    color: '#fff',
+                    backgroundColor: '#333',
+                    borderRadius: 4,
+                    width: '100%',
+                    transition: 'all 0.3s'
                   }}
                 />
               )}
             />
-          </Grid> */}
+          </Grid>
         </Grid>
       </Toolbar>
-    </Header>
+    </AppBar>
   )
 }
 
-export default HeaderComp
+export default Header

@@ -1,16 +1,7 @@
-import ContentImage from 'src/components/contentImage'
-import MovieSlider from 'src/components/movieSlider'
+import MovieCarousel from 'src/components/movieCarousel'
+import MovieHeadCard from 'src/components/movieHeadCard'
 
 const HomeContent = () => {
-  const imageUrl =
-    'https://www.donanimhaber.com/images/images/haber/158747/1400x788harry-potter-film-serisi-izleme-sirasi.jpg'
-
-  const movieName =
-    'Film İsmi Lorem ipsum dolr sit amet, consectetur adipiscing elit. Vestibulum dignissim venenatis neque'
-
-  const description =
-    'Lorem ipsum dolr sit amet, consectetur adipiscing elit. Vestibulum dignissim venenatis nequeLorem ipsum dolr sit amet, consectetur adipiscing elit. Vestibulum dignissim venenatis nequeLorem ipsum dolr sit amet, consectetur adipiscing elit. Vestibulum dignissim venenatis nequeLorem ipsum dolr sit amet, consectetur adipiscing elit. Vestibulum dignissim venenatis neque'
-
   const movieCategory = [
     'Aksiyon Filmleri',
     'Bilim Kurgu Filmleri',
@@ -27,16 +18,14 @@ const HomeContent = () => {
     'Korku Filmleri'
   ]
 
-  const carouselCount = 4
-
-  const carousels = movieCategory.map((category, index) => <MovieSlider category={category} key={index} />)
-
   return (
-    <div>
-      <ContentImage imageUrl={imageUrl} movieName={movieName} description={description} />
+    <>
+      <MovieHeadCard />
 
-      {carousels}
-    </div>
+      {movieCategory.map((category, index) => (
+        <MovieCarousel category={category} key={index} />
+      ))}
+    </>
   )
 }
 

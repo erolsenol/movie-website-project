@@ -17,13 +17,20 @@ const MovieDetail = () => {
   const [movie, setMovie] = useState({})
 
   useEffect(() => {
+    console.log('router :>> ', router)
     if (router.query.id) {
       setLoading(true)
       getMovieDetail(router.query.id[1], setMovie).finally(res => setLoading(false))
     }
   }, [])
 
-  return <h1>Movie Detail {movie.title}</h1>
+  return (
+    <div>
+      <h1>Movie Detail {movie.title}</h1>
+      <h1>Movie Detail {movie.url}</h1>
+      <iframe src={movie.url}></iframe>
+    </div>
+  )
 }
 
 export default MovieDetail
