@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+import DetailPageContent from 'src/containers/DetailPageContent'
 
 async function getMovieDetail(id, setFunc) {
   return new Promise(async (resolve, reject) => {
@@ -17,7 +18,7 @@ const MovieDetail = () => {
   const [movie, setMovie] = useState({})
 
   useEffect(() => {
-    console.log('router :>> ', router)
+    // console.log('router :>> ', router)
     if (router.query.id) {
       setLoading(true)
       getMovieDetail(router.query.id[1], setMovie).finally(res => setLoading(false))
@@ -29,6 +30,7 @@ const MovieDetail = () => {
       <h1>Movie Detail {movie.title}</h1>
       <h1>Movie Detail {movie.url}</h1>
       <iframe src={movie.url}></iframe>
+      <DetailPageContent />
     </div>
   )
 }
