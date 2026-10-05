@@ -1,19 +1,16 @@
-# Movie website experiment
+# Frames — movie website demo
 
-An older Next.js movie website experiment.
+A small movie discovery demo built with Next.js App Router, React, and TypeScript. It renders a static fictional catalog on the server and keeps search and genre filtering in a leaf Client Component. No account, API key, external movie service, or licensed poster asset is required.
 
-> **Status:** Historical example; currently not actively maintained.
+## Run locally
 
-## Local commands
-
-These commands reflect the repository scripts. This historical project has not been validated against current runtimes.
+Requires Node.js 20.9 or newer.
 
 ```sh
-npm install
+npm ci
 npm run dev
-npm run start
-npm run build
 ```
-## Use and maintenance
 
-This repository is retained as a public record of earlier work. Dependencies and third-party services may have changed. Review the source and configuration before running it. No license is granted unless a `LICENSE` file is present.
+Use `npm test`, `npm run typecheck`, `npm run build`, and `npm audit --audit-level=high` to verify changes. The original 2023 admin-template experiment is preserved under `legacy/`; it is not part of the current build.
+
+No license is granted in this repository.
