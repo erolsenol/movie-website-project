@@ -11,3 +11,14 @@ describe('filterMovies', () => {
     expect(filterMovies(movies, 'not a movie', 'All')).toEqual([]);
   });
 });
+
+  it('matches ASCII I consistently regardless of the browser locale', () => {
+    const lower = String.prototype.toLocaleLowerCase;
+    String.prototype.toLocaleLowerCase = function () { return lower.call(this, 'tr'); };
+    try { expect(filterMovies(movies, 'SIGNAL', 'All').map((movie) => movie.id)).toEqual(['last-signal']); }
+    finally { String.prototype.toLocaleLowerCase = lower; }
+  });
+  it('handles whitespace-only queries and combined filters', () => {
+    expect(filterMovies(movies, '  ', 'All')).toHaveLength(movies.length);
+    expect(filterMovies(movies, 'signal', 'Drama')).toEqual([]);
+  });

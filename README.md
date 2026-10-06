@@ -14,3 +14,5 @@ npm run dev
 Use `npm test`, `npm run typecheck`, `npm run build`, and `npm audit --audit-level=high` to verify changes. The original 2023 admin-template experiment is preserved under `legacy/`; it is not part of the current build.
 
 No license is granted in this repository.
+
+Search uses locale-independent case folding for this English catalog. Filter result counts are announced to assistive technology, and Clear filters resets both controls.
